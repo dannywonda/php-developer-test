@@ -30,7 +30,7 @@ class UserStoreFromApiTest extends TestCase
     public function test_user_added_to_database_with_page()
     {
         $request = Request::create('/store', 'GET',[
-            // 'api'     =>  'https://reqres.in/api/users',
+            'api'     =>  'https://reqres.in/api/users',
             'page'  =>  2,
         ]);
  
