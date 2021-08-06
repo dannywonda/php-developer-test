@@ -31,15 +31,19 @@ class UserService {
     public static function getUserFromApi($apiLink, $page)
     {
         try {
-            $api = $page > 0 ? $apiLink . '?page=' . $page : $apiLink;
-            $httpClient = new \GuzzleHttp\Client();
-            $request = $httpClient->get($api);
+            if (!$apiLink) {
+                $api = $page > 0 ? $apiLink . '?page=' . $page : $apiLink;
+                $httpClient = new \GuzzleHttp\Client();
+                $request = $httpClient->get($api);
+                
+                return json_decode($request->getBody()->getContents())->data;
+            }
         } catch (Throwable $e) {
             return response()->json([
                 'message' => 'Record not found.'
             ], 404);
         }
 
-        return json_decode($request->getBody()->getContents())->data;
+       
     } 
 }
